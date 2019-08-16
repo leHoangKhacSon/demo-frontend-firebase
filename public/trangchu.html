@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/6.4.0/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/6.4.0/firebase-auth.js"></script>
+    <script defer src="/__/firebase/6.4.0/firebase-database.js"></script>
+    <script defer src="/__/firebase/6.4.0/firebase-firestore.js"></script>
+    <script defer src="/__/firebase/6.4.0/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/6.4.0/firebase-storage.js"></script>
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script defer src="/__/firebase/init.js"></script>
+</head>
+<body>
+	<button id="btn-display">hien thi</button>
+
+
+	<script type="text/javascript">
+		var btnDisplay = document.getElementById('btn-display');
+
+		// khi click button hien thi thi` thuc hien ham
+		btnDisplay.addEventListener('click', onClickButton);
+
+		// ham hien thi user khi click
+		function onClickButton(){
+			// xu ly
+			// lay ra user dang dang nhap
+			var user = firebase.auth().currentUser;
+			if(user){
+				// nee ton tai user dang dang nhap thi in ra
+				// providerData la mang chua object user
+				user.providerData.forEach(function(profile){
+					// profile la 1 object trong mang (mang nay chi co 1 object)
+					console.log(profile.uid);
+				});
+			} else {
+				console.log('khong co nguoi dang nhap');
+			}	
+		}
+
+	</script>
+</body>
+</html>

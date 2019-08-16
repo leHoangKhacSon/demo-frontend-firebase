@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/6.4.0/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/6.4.0/firebase-auth.js"></script>
+    <script defer src="/__/firebase/6.4.0/firebase-database.js"></script>
+    <script defer src="/__/firebase/6.4.0/firebase-firestore.js"></script>
+    <script defer src="/__/firebase/6.4.0/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/6.4.0/firebase-storage.js"></script>
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script defer src="/__/firebase/init.js"></script>
+</head>
+<body>
+	<input id="email" type="text" placeholder="email">
+	<input id="password" type="password" placeholder="password">
+	<button id="btn-login">dang nhap</button>
+	<button id="btn-logout">dang xuat</button>
+
+	<script type="text/javascript">
+		var btnLogin = document.getElementById('btn-login');
+		var btnLogout = document.getElementById('btn-logout');
+
+		btnLogin.addEventListener('click', onClickLogin);
+
+		// ham dang nhap khi click login
+		function onClickLogin(){
+			// lay gia tri email nhap vao
+			var email = document.getElementById('email').value;
+			// lay gia tri password nhap vao
+			var password = document.getElementById('password').value;
+
+			// xu ly dang nhap
+
+			// neu dang ton tai nguoi su dung thi log out
+			if(firebase.auth().currentUser){
+				// bat dau log out
+				firebase.auth().signOut();
+				// ket thuc log out
+			} else {
+				// neu email nho hon 4 ky tu thi yeu cau nhap lai
+				if(email.length < 4){
+					alert('nhap lai email');
+					return;
+				}
+				// neu mat khau nho hon 4 ky tu thi yeu cau nhap lai
+				if(password.length < 4){
+					alert('nhap lai mat khau');
+					return;
+				}
+				// dang nhap bang email va password
+				// dat dau xac thuc
+				firebase.auth().signInWithEmailAndPassword(email, password)
+				.then(function(res){
+					console.log('dang nhap thanh cong');
+					window.location.href = './trangchu.html';
+				})
+				.catch(function(err){
+					// xu ly loi tai day
+					var errorCode = err.code;
+					var errorMessage = err.message;
+					// bat dau loai tru
+					if(errorCode === 'auth/wrong-password'){
+						alert('Wrong pass word');
+					} else {
+						alert('errorMessage');
+					}
+					console.log(err);
+					// ket thuc loai tru
+				});
+				// ket thuc xac thuc
+			}
+		}
+	</script>
+</body>
+</html>
