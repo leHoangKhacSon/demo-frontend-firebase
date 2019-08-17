@@ -21,7 +21,7 @@
 
 
 	<script type="text/javascript">
-		var btnDisplay = document.getElementById('btn-display');
+		const btnDisplay = document.getElementById('btn-display');
 
 		// khi click button hien thi thi` thuc hien ham
 		btnDisplay.addEventListener('click', onClickButton);
@@ -30,7 +30,7 @@
 		function onClickButton(){
 			// xu ly
 			// lay ra user dang dang nhap
-			var user = firebase.auth().currentUser;
+			let user = firebase.auth().currentUser;
 			if(user){
 				// nee ton tai user dang dang nhap thi in ra
 				// providerData la mang chua object user

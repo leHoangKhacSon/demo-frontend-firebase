@@ -23,17 +23,17 @@
 	<button id="btn-logout">dang xuat</button>
 
 	<script type="text/javascript">
-		var btnLogin = document.getElementById('btn-login');
-		var btnLogout = document.getElementById('btn-logout');
+		const btnLogin = document.getElementById('btn-login');
+		const btnLogout = document.getElementById('btn-logout');
 
 		btnLogin.addEventListener('click', onClickLogin);
 
 		// ham dang nhap khi click login
 		function onClickLogin(){
 			// lay gia tri email nhap vao
-			var email = document.getElementById('email').value;
+			let email = document.getElementById('email').value;
 			// lay gia tri password nhap vao
-			var password = document.getElementById('password').value;
+			let password = document.getElementById('password').value;
 
 			// xu ly dang nhap
 
