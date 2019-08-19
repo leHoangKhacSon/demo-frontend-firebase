@@ -13,15 +13,20 @@
     <script defer src="/__/firebase/6.4.0/firebase-firestore.js"></script>
     <script defer src="/__/firebase/6.4.0/firebase-messaging.js"></script>
     <script defer src="/__/firebase/6.4.0/firebase-storage.js"></script>
+
     <!-- initialize the SDK after all desired features are loaded -->
     <script defer src="/__/firebase/init.js"></script>
 </head>
 <body>
 	<button id="btn-display">hien thi</button>
-
+	
 
 	<script type="text/javascript">
 		const btnDisplay = document.getElementById('btn-display');
+		let uid, userId;
+		
+		
+		let db = firebase.firestore();
 
 		// khi click button hien thi thi` thuc hien ham
 		btnDisplay.addEventListener('click', onClickButton);
@@ -36,12 +41,31 @@
 				// providerData la mang chua object user
 				user.providerData.forEach(function(profile){
 					// profile la 1 object trong mang (mang nay chi co 1 object)
+					// profile.uid la uid cua user authencation hien tai dang dang nhap
+					uid = profile.uid;
 					console.log(profile.uid);
 				});
 			} else {
 				console.log('khong co nguoi dang nhap');
 			}	
 		}
+
+		// lay ra id document trong users collection hien tai cua nguoi dung dang hoat dong
+		db.collection("users").where("email", "==", uid)
+	    .get()
+	    .then(function(querySnapshot) {
+	        querySnapshot.forEach(function(doc) {
+	            // doc.data() is never undefined for query doc snapshots
+	            // gan id cua document bang userId
+	            userId = doc.id;
+	            console.log(doc.id);
+	            // hien thi data trong document cua userId
+	            console.log(doc.data());
+	        });
+	    })
+	    .catch(function(error) {
+	        console.log("Error getting documents: ", error);
+	    });
 
 	</script>
 </body>
